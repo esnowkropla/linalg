@@ -64,11 +64,7 @@ func Zero(row, col int) *Matrix {
 
 func (M *Matrix) Copy() *Matrix {
 	var N = Zero(M.col, M.row)
-	for i := 0; i < N.col; i++ {
-		for j := 0; j < N.row; j++ {
-			N.Set_elem(i, j, M.Elem(i, j))
-		}
-	}
+	copy(N.Mij, M.Mij)
 
 	return N
 }
@@ -109,4 +105,10 @@ func Mul(A, B, C *Matrix) error {
 		}
 	}
 	return nil
+}
+
+func (M *Matrix) Scale(scalar complex128) {
+	for i := 0; i < M.col * M.row; i++ {
+		M.Mij[i] *= scalar
+	}
 }
