@@ -14,9 +14,10 @@ func (M *Matrix) String() string {
 	ret := ""
 	for i := 0; i < M.row; i++ {
 		for j := 0; j < M.col; j++ {
-			ret += strconv.FormatFloat(real(M.Elem(i, j)), 'g', -1, 64)
+			ret += strconv.FormatFloat(real(M.Elem(i, j)), 'g', -1, 64) + " "
+			ret += strconv.FormatFloat(imag(M.Elem(i, j)), 'g', -1, 64) + "j"
 			if j < M.col-1 {
-				ret += " "
+				ret += ", "
 			}
 		}
 		ret += "\n"

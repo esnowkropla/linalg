@@ -17,9 +17,9 @@ func ExampleIdent() {
 	eye := Ident(3)
 	fmt.Println(eye)
 	// Output:
-	// 1 0 0
-	// 0 1 0
-	// 0 0 1
+	// 1 0j, 0 0j, 0 0j
+	// 0 0j, 1 0j, 0 0j
+	// 0 0j, 0 0j, 1 0j
 }
 
 func TestMul(t *testing.T) {
