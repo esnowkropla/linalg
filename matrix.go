@@ -7,7 +7,7 @@ import (
 
 type Matrix struct {
 	row, col int
-	Mij      []complex128
+	data     []complex128
 }
 
 func (M *Matrix) String() string {
@@ -27,11 +27,11 @@ func (M *Matrix) String() string {
 
 /* Access Functions */
 func (M *Matrix) Elem(row, col int) complex128 {
-	return M.Mij[row+col*M.row]
+	return M.data[row+col*M.row]
 }
 
 func (M *Matrix) Set_elem(row, col int, val complex128) {
-	M.Mij[row+col*M.row] = val
+	M.data[row+col*M.row] = val
 }
 
 func (M *Matrix) Set_int(row, col, val int) {
@@ -47,7 +47,7 @@ func Ident(dim int) *Matrix {
 	var mat = new(Matrix)
 	mat.row = dim
 	mat.col = dim
-	mat.Mij = make([]complex128, dim*dim)
+	mat.data = make([]complex128, dim*dim)
 	for i := 0; i < dim; i++ {
 		mat.Set_elem(i, i, 1)
 	}
@@ -59,20 +59,20 @@ func Zero(row, col int) *Matrix {
 	var M = new(Matrix)
 	M.row = row
 	M.col = col
-	M.Mij = make([]complex128, row*col)
+	M.data = make([]complex128, row*col)
 	return M
 }
 
 func (M *Matrix) Copy() *Matrix {
 	var N = Zero(M.col, M.row)
-	copy(N.Mij, M.Mij)
+	copy(N.data, M.data)
 
 	return N
 }
 
-func Init(row, col int, data []complex128) *Matrix {
+func Init(row, col int, slice []complex128) *Matrix {
 	var M = Zero(row, col)
-	M.Mij = data
+	M.data = slice
 	return M
 }
 
@@ -123,6 +123,6 @@ func Add(A, B, C *Matrix) error {
 
 func (M *Matrix) Scale(scalar complex128) {
 	for i := 0; i < M.col*M.row; i++ {
-		M.Mij[i] *= scalar
+		M.data[i] *= scalar
 	}
 }
