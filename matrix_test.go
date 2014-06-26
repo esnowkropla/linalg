@@ -31,3 +31,12 @@ func TestMul(t *testing.T) {
 		t.Error("Multiplied", test, eye, "expected", test, "got", out)
 	}
 }
+
+func TestScale(t *testing.T) {
+	eye := Ident(3)
+	test := Init(3, 3, []complex128{2, 0, 0, 0, 2, 0, 0, 0, 2})
+	eye.Scale(2)
+	if !eye.Eq(test) {
+		t.Error("Multiplied", Ident(3), "by 2, expected",test,"got",eye)
+	}
+}
