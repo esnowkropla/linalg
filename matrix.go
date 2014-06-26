@@ -108,8 +108,21 @@ func Mul(A, B, C *Matrix) error {
 	return nil
 }
 
+func Add(A, B, C *Matrix) error {
+	if A.col != B.col || A.col != C.col || A.row != B.row || A.row != C.row {
+		return errors.New("Matrix Addition size mismatch")
+	}
+
+	for i := 0; i < A.col; i++ {
+		for j := 0; j < A.row; j++ {
+			C.Set_elem(i, j, A.Elem(i, j)+B.Elem(i, j))
+		}
+	}
+	return nil
+}
+
 func (M *Matrix) Scale(scalar complex128) {
-	for i := 0; i < M.col * M.row; i++ {
+	for i := 0; i < M.col*M.row; i++ {
 		M.Mij[i] *= scalar
 	}
 }
